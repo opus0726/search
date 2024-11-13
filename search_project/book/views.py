@@ -1,6 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.db.models import Avg
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
