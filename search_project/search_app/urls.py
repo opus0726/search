@@ -1,38 +1,16 @@
+from django.urls import path
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-from django import forms 
-from .models import Product 
- 
-class SearchForm(forms.Form): 
-    query = forms.CharField( 
-        label='検索キーワード', 
-        max_length=100, 
-        required=False, 
-        widget=forms.TextInput(attrs={'placeholder': '検索したいキーワードを入力'})    
-    ) 
- 
-class ProductForm(forms.ModelForm): 
-    class Meta: 
-        model = Product 
-        fields = ['name', 'description', 'price', 'category']  
-from django.urls import path 
-from . import views 
- 
-urlpatterns = [ 
-    path('', views.search_view, name='search_view'), 
-    path('search/', views.search_view, name='search_view'), 
-    path('product/new/', views.product_create, name='product_create'), 
-    path('product/<int:pk>/', views.product_detail, name='product_detail'), 
-    path('product/<int:pk>/edit/',  views.product_update, name='product_update'), 
-    path('product/<int:pk>/delete',  views.product_delete, name='product_delete'), 
-    path('product/', views.product_list, name='product_list'), 
+from . import views
+
+urlpatterns = [
+    path('', views.index_view, name='index'),
+    path('book/', views.ListBookView.as_view(), name='list-book'),
+    path('book/<int:pk>/detail/', views.DetailBookView.as_view(), name='detail-book'),
+    path('book/create/', views.CreateBookView.as_view(), name='create-book'),
+    path('book/<int:pk>/delete/', views.DeleteBookView.as_view(), name='delete-book'),
+    path('book/<int:pk>/update/', views.UpdateBookView.as_view(), name='update-book'),
+    path('book/<int:book_id>/review/', views.CreateReviewView.as_view(), name='review'),
+    path('book/search/',views.SearchView.as_view(), name="search"),
+    path('book/<int:book_id>/like/',views.LikeView.as_view(), name="like"),
+    path('book/acp/',views.AcpView.as_view(), name="acp"),
 ]
