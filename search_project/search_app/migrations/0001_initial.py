@@ -19,8 +19,4 @@ class Migration(migrations.Migration):
                 ('number', models.IntegerField()),
             ],
         ),
-        migrations.RenameModel(
-            old_name='book',  # 古いモデル名
-            new_name='search_app',  # 新しいモデル名
-        ),
     ]
