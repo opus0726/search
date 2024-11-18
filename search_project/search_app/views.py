@@ -17,18 +17,18 @@ from .models import Book, Review, Like
 
 class ListBookView(LoginRequiredMixin, ListView):
     model = Book
-    template_name = 'book_list.html'
+    template_name = 'list.html'
 
 class DetailBookView(DetailView):
     model = Book
-    template_name = 'book_detail.html'
+    template_name = 'detail.html'
 
 
 class CreateBookView(LoginRequiredMixin, CreateView):
     model = Book
-    template_name = 'book_create.html'
+    template_name = 'create.html'
     fields = ('title', 'text', 'category', 'thumbnail' ,'start', 'end')
-    success_url = reverse_lazy('list-book')
+    success_url = reverse_lazy('list')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -37,8 +37,8 @@ class CreateBookView(LoginRequiredMixin, CreateView):
 
 class DeleteBookView(LoginRequiredMixin, DeleteView):
     model = Book
-    template_name = 'book_delete.html'
-    success_url = reverse_lazy('list-book')
+    template_name = 'delete.html'
+    success_url = reverse_lazy('list')
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -51,7 +51,7 @@ class DeleteBookView(LoginRequiredMixin, DeleteView):
 
 class UpdateBookView(LoginRequiredMixin, UpdateView):
     model = Book
-    template_name = 'book_update.html'
+    template_name = 'update.html'
     fields = ('title', 'text', 'category', 'thumbnail')
 
     def get_object(self, queryset=None):
@@ -63,7 +63,7 @@ class UpdateBookView(LoginRequiredMixin, UpdateView):
         return obj
 
     def get_success_url(self):
-        return reverse('detail-book', kwargs={'pk': self.object.id})
+        return reverse('detail', kwargs={'pk': self.object.id})
 
 
 def index_view(request):
@@ -110,7 +110,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('detail-book', kwargs={'pk': self.object.book.id})
+        return reverse('detail', kwargs={'pk': self.object.book.id})
     
 class SearchView(ListView):
     model = Book
