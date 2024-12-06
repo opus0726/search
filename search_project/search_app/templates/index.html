@@ -4,13 +4,11 @@
 {% block h1 %}本棚アプリ{% endblock %}
 
 {% block content %}
-<h1 class="title">Event information</h1>
   <div class="row">
     <div class="col-9">
       {% for month in data %}
-      <p class="moths">{{month.0.start|date:"M, Y"}}</p>
       {% for item in month %}
-      <a href="{% url 'detail-book' item.pk %}">
+      <a href="{% url 'detail' item.pk %}">
         <div class="p-4 m-4 bg-light border border-success rounded ivent mt-3">
           <img src="{{ item.thumbnail.url }}" class="img-thumbnail" />
           <div class="ivent_inform">

@@ -8,7 +8,7 @@
     {% for object in object_list %}
         <div class="card my-3">
             <div class="card-body">
-                <a href="{% url 'detail-book' object.id %}">
+                <a href="{% url 'detail' object.id %}">
                     <div class="p-4 m-4 bg-light border border-success rounded ivent mt-3">
                       <img src="{{ object.thumbnail.url }}" class="img-thumbnail" />
                       <div class="ivent_inform">
