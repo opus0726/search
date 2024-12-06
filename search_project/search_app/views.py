@@ -12,20 +12,20 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .models import Book, Review, Like
+from .models import Product, Review, Like
 
 
-class ListBookView(LoginRequiredMixin, ListView):
-    model = Book
+class ListView(LoginRequiredMixin, ListView):
+    model = Product
     template_name = 'list.html'
 
-class DetailBookView(DetailView):
-    model = Book
+class DetailView(DetailView):
+    model = Product
     template_name = 'detail.html'
 
 
-class CreateBookView(LoginRequiredMixin, CreateView):
-    model = Book
+class CreateItemView(LoginRequiredMixin, CreateView):
+    model = Product
     template_name = 'create.html'
     fields = ('title', 'text', 'category', 'thumbnail' ,'start', 'end')
     success_url = reverse_lazy('list')
@@ -35,8 +35,8 @@ class CreateBookView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class DeleteBookView(LoginRequiredMixin, DeleteView):
-    model = Book
+class DeleteView(LoginRequiredMixin, DeleteView):
+    model = Product
     template_name = 'delete.html'
     success_url = reverse_lazy('list')
 
@@ -49,8 +49,8 @@ class DeleteBookView(LoginRequiredMixin, DeleteView):
         return obj
 
 
-class UpdateBookView(LoginRequiredMixin, UpdateView):
-    model = Book
+class UpdateView(LoginRequiredMixin, UpdateView):
+    model = Product
     template_name = 'update.html'
     fields = ('title', 'text', 'category', 'thumbnail')
 
@@ -67,32 +67,7 @@ class UpdateBookView(LoginRequiredMixin, UpdateView):
 
 
 def index_view(request):
-    order = ('start',)
-    query = Book.objects.all().order_by(*order)
-    first = True
-    data = []
-    month = []
-    for q in query:
-        if first:
-            first = False
-            month.append(q)
-            prev=q.start.strftime("%Y-%m")
-        else:
-            if q.start.strftime("%Y-%m") != prev:
-                data.append(month)
-                month = []
-                month.append(q)
-                prev = q.start.strftime("%Y-%m")
-            else:
-                month.append(q)
-    data.append(month)
-    return render(
-        request,
-        'index.html',
-        {
-            'data': data,
-        }
-    )
+    return render(request,'index.html',)
 
 
 class CreateReviewView(LoginRequiredMixin, CreateView):
@@ -102,7 +77,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['book'] = Book.objects.get(pk=self.kwargs['book_id'])
+        context['book'] = Product.objects.get(pk=self.kwargs['book_id'])
         return context
 
     def form_valid(self, form):
@@ -113,7 +88,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         return reverse('detail', kwargs={'pk': self.object.book.id})
     
 class SearchView(ListView):
-    model = Book
+    model = Product
     template_name = 'search.html'
 
     def get_queryset(self):
@@ -132,7 +107,7 @@ class SearchView(ListView):
         return context
 
 class LikeView(ListView):
-    model = Book
+    model = Product
     template_name = 'acp.html'
 
 
