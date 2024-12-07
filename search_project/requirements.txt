@@ -4,6 +4,8 @@ charset-normalizer==3.3.2
 Django==5.1.1
 django-allauth==65.0.2
 django-debug-toolbar==4.4.6
+django-environ==0.11.2
+environ==1.0
 idna==3.10
 pillow==11.0.0
 psycopg2==2.9.9
