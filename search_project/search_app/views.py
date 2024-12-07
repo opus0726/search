@@ -73,11 +73,11 @@ def index_view(request):
 class CreateReviewView(LoginRequiredMixin, CreateView):
     model = Review
     template_name = 'review_form.html'
-    fields = ('book','text')
+    fields = ('product','text')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['book'] = Product.objects.get(pk=self.kwargs['book_id'])
+        context['product'] = Product.objects.get(pk=self.kwargs['product_id'])
         return context
 
     def form_valid(self, form):
@@ -85,7 +85,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('detail', kwargs={'pk': self.object.book.id})
+        return reverse('detail', kwargs={'pk': self.object.product.id})
     
 class SearchView(ListView):
     model = Product

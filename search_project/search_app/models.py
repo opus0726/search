@@ -21,7 +21,7 @@ class Product(models.Model):
 
 
 class Review(models.Model):
-    Product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     text = models.TextField()
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
