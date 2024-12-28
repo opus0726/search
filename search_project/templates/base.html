@@ -18,7 +18,7 @@
     </a>
     <form class="w-50" method="GET" action="{% url 'search' %}">
       <p><input class="form-control" type="text" name="title" value="{{ title }}" placeholder="キーワード入力"></p>
-      <select name="category" value="{{ category }}" id="sel">
+      <select name="genreId" value="{{ genreId }}" id="sel">
         <option value="">カテゴリー</option>
         <option value="anime">アニメ</option>
         <option value="game">ゲーム</option>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>楽天商品一覧</title>
+</head>
+<body>
+    <h1>楽天商品一覧</h1>
+    <ul>
+    {% for item in items %}
+        {{ item.Item.itemName }}
+    {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock %}
